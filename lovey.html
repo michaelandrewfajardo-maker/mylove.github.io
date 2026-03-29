@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Page Love Letter 🌸💌</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 25%, #fd79a8 50%, #e17055 75%, #d63031 100%);
+            background-size: 400% 400%;
+            animation: loveGradient 15s ease infinite;
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes loveGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Page container */
+        .page-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .page-container.hidden {
+            opacity: 0;
+            transform: scale(1.1) translateY(50px);
+            pointer-events: none;
+        }
+
+        /* FRONT PAGE - Falling Flowers */
+        .front-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 20;
+        }
+
+        /* Falling flowers */
+        .falling-flowers {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: clamp(18px, 3vw, 35px);
+            animation: fall linear infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10%) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Front page envelope */
+        .envelope-front {
+            background: linear-gradient(145deg, #fff 0%, #f8f9fa 100%);
+            width: clamp(350px, 70vw, 500px);
+            height: clamp(500px, 80vh, 650px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 
+                0 40px 80px rgba(0,0,0,0.3),
+                inset 0 5px 20px rgba(255,255,255,0.8),
+                0 0 0 20px rgba(255,255,255,0.9);
+            position: relative;
+            animation: envelopeFloat 4s ease-in-out infinite;
+            border: 5px solid #ffe4e1;
+        }
+
+        @keyframes envelopeFloat {
+            0%, 100% { transform: translateY(0px) rotateX(2deg); }
+            50% { transform: translateY(-15px) rotateX(0deg); }
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 180px solid transparent;
+            border-right: 180px solid transparent;
+            border-bottom: 140px solid #ffccd5;
+            z-index: 25;
+            animation: flapOpen 3s ease-out 1s forwards;
+        }
+
+        @keyframes flapOpen {
+            0% { transform: translateX(-50%) rotateZ(0deg); }
+            100% { transform: translateX(-50%) rotateZ(8deg) translateY(8px); }
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: #e84393;
+            text-shadow: 0 0 30px #ff69b4;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            z-index: 30;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .front-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: #d63031;
+            margin: 40px 0 20px 0;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 3px 3px 10px rgba(0,0,0,0.3), 0 0 30px #ff6b9d; }
+            to { text-shadow: 3px 3px 10px rgba(0,0,0,0.3), 0 0 50px #e84393; }
+        }
+
+        .front-subtitle {
+            font-size: 1.4rem;
+            color: #636e72;
+            margin-bottom: 50px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        /* Next button */
+        .next-btn {
+            background: linear-gradient(45deg, #fd79a8, #e84393);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-family: 'Dancing Script', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(232,67,147,0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: btnPulse 2s infinite;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(232,67,147,0.6);
+        }
+
+        .next-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 15px 35px rgba(232,67,147,0.4); }
+            50% { box-shadow: 0 15px 35px rgba(232,67,147,0.6); }
+        }
+
+        /* SECOND PAGE - Long Love Letter */
+        .letter-page {
+            padding: 60px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,248,248,0.98) 100%);
+            border-radius: 25px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.3);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255,255,255,0.8);
+            animation: letterSlideIn 1.2s ease-out;
+        }
+
+        @keyframes letterSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(100px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .letter-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #e84393, #fd79a8, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: none;
+        }
+
+        .letter-date {
+            color: #b2bec3;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        .long-message {
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: #2d3436;
+            margin-bottom: 60px;
+            text-align: justify;
+        }
+
+        .long-message p {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 35px;
+        }
+
+        .long-message p::before {
+            content: '💌';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            font-size: 1.3rem;
+            animation: mailFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes mailFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .signature-section {
+            border-top: 2px solid #ffeaa7;
+            padding-top: 50px;
+            text-align: right;
+        }
+
+        .signature-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #e84393;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(232,67,147,0.3);
+        }
+
+        .signature-line {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #fd79a8, #e84393, transparent);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+            animation: drawLine 2s ease-out forwards;
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+
+        @keyframes drawLine {
+            to { transform: scaleX(1); }
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: 'Dancing Script', cursive;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,184,148,0.4);
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0,184,148,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .letter-page {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .long-message {
+                font-size: 1.1rem;
+            }
+            
+            .front-title {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Falling Flowers -->
+    <div class="falling-flowers" id="fallingFlowers"></div>
+
+    <!-- FRONT PAGE -->
+    <div class="page-container front-page active" id="frontPage">
+        <div class="envelope-front">
+            <div class="envelope-flap"></div>
+            <div class="heart-seal">💖</div>
+            <h1 class="front-title">My Love Letter</h1>
+            <p class="front-subtitle">For the one who holds my heart forever</p>
+            <button class="next-btn" onclick="showLetterPage()">Open Letter ➡️</button>
+        </div>
+    </div>
+
+    <!-- LETTER PAGE -->
+    <div class="page-container letter-page hidden" id="letterPage">
+        <div class="letter-header">
+            <h1 class="letter-title">Dearest Love of My Life</h1>
+            <div class="letter-date">Read the message^^
+                
+            </div>
+        </div>
+        
+        <div class="long-message">
+            <p>Hello my love, i know na andami kong pag kukulang sayo hayaan mokong bumawi sayo sa paraang kaya ko but i just want you to know na hindi lang sa basta kaya ko gagawin ko ang best ko para maka bawi sayo and sabi ko nga na action speaks louder than words diba so it`s time to prove my self again to you but don`t worry my love
+                bumalik ako kase mahal kita and minahal kita kase ikaw yan at hindi dahil maganda ka yes you`re gorgeous but thats not the reason kaya kita minahal minahal kita kase i found my heart comfortable when im talking to you so dikona siguro to pahahabain pa sorry kase konting effort lang to i just want you to ask again po. may i court you my love?
+            </p> 
+            </div>
+        
+        <div class="signature-section">
+            <div class="signature-line">my gorgeous leyley</div>
+            <div class="signature-name">Forever Yours,</div>
+            <div style="font-size: 1.5rem; color: #636e72; margin-top: 10px;">Kael 💕</div>
+        </div>
+        
+        <button class="back-btn" onclick="showFrontPage()">← Back to Front</button>
+    </div>
+
+    <script>
+        // Create continuous falling flowers
+        const flowers = ['🌸', '🌺', '🌹', '🌷', '🌺', '💐', '🌺', '🌸'];
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.style.left = Math.random() * 100 + '%';
+            flower.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            flower.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('fallingFlowers').appendChild(flower);
+            
+            setTimeout(() => flower.remove(), 15000);
+        }
+
+        // Generate flowers continuously
+        setInterval(createFlower, 300);
+
+        // Page switching functions
+        function showLetterPage() {
+            document.getElementById('frontPage').classList.add('hidden');
+            document.getElementById('letterPage').classList.remove('hidden');
+            document.body.style.overflowY = 'auto';
+        }
+
+        function showFrontPage() {
+            document.getElementById('letterPage').classList.add('hidden');
+            document.getElementById('frontPage').classList.remove('hidden');
+            document.body.style.overflowY = 'hidden';
+            document.documentElement.scrollTop = 0;
+        }
+
+        // Add sparkle effect on button hover
+        document.querySelector('.next-btn').addEventListener('mouseenter', function() {
+            for(let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.left = '50%';
+                    sparkle.style.top = '50%';
+                    sparkle.style.fontSize = '25px';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.zIndex = '1000';
+                    sparkle.style.animation = 'heartbeat 0.8s ease-out';
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 800);
+                }, i * 50);
+            }
+        });
+
+        // Auto-generate initial flowers
+        for(let i = 0; i < 15; i++) {
+            setTimeout(createFlower, i * 200);
+        }
+    </script>
+</body>
+</html>
